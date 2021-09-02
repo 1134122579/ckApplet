@@ -1,0 +1,30 @@
+/* pages/about/index.wxss */
+.flexBlockAbout{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.spanbetween{
+  justify-content: space-between;
+}
+.headerTop{
+  padding: 10px 20px;
+  background: #fff;
+}
+.headerImage{
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+.userInfo{
+  margin-left: 20px;
+}
+.name{
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.out{
+  margin-top: 300px;
+  padding:0 20px;
+}

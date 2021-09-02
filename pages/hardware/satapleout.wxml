@@ -1,0 +1,51 @@
+<!-- pages/hardware/staple.wxml -->
+<view class="staple" hidden="{{!oksetList}}">
+	<!-- 选择原料类型 -->
+	<view hidden="{{is_picker}}">
+		<view class="title">选择原料</view>
+		<view class="pickerStyle">
+			<picker header-text="选择原料" bindchange="staplebindchange" value="{{value}}" range="{{stapleList}}"
+				range-key="name">
+				<view class="picker">{{getData.name}}</view>
+			</picker>
+		</view>
+		<view class="title">选择供应商</view>
+		<view class="pickerStyle">
+			<picker header-text="选择供应商" bindchange="ShopNamebindchange" value="{{value}}" range="{{supplierList}}"
+				range-key="name">
+				<view class="picker">{{getData.supplier}}</view>
+			</picker>
+			<!-- <input
+				 class="inputStyle"
+				 value="{{getData.supplier}}"
+				 bindinput="bindKeyInput"
+				 placeholder="请输入供应商"
+				/> -->
+		</view>
+	</view>
+
+	<!-- 数量 -->
+	<view hidden="{{!isNumber}}">
+		<view class="title">原料:{{getData.name}}</view>
+		<view class="title">供应商:{{getData.supplier}}</view>
+		<view class="title">数量</view>
+		<view class="numberStyle">
+			<input type="text" class="inputStyle" type="number" bindinput="bindnumInput"  placeholder="请输入数量" /><text class="unitStyle">{{getData.unit}}</text>
+		</view>
+	</view>
+	<!-- 原料数量  单位 -->
+	<view class="buttonStyle">
+		<button type="primary" disabled="{{isDisabled}}" bindtap="next" wx:if="{{!is_homeButton}}">
+			{{isNumber?'确定':"下一步"}}
+		</button>
+	</view>
+</view>
+<!-- 完成 -->
+<view hidden="{{oksetList}}" class="okPage">
+ <view class="oKtext">出库成功</view> 
+ <view class="buttonStyle margionT">
+ <button type="primary" bindtap="ok" >
+		完成
+		</button>
+ </view>
+</view>

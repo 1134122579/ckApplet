@@ -1,0 +1,49 @@
+/* pages/orderlist/index.wxss */
+
+.ordercontainer {
+  box-sizing: border-box;
+  margin: 40rpx;
+}
+
+.title {
+  padding: 20rpx 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.orderlist {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.otemStyle {
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+  border-radius: 10rpx;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  margin-top: 40rpx;
+  height: 38px;
+  line-height: 38px;
+  font-size: 30rpx;
+  width: 46%;
+  text-align: center;
+}
+
+.nullStyle {
+  width: 46%;
+}
+.sureStyle{
+  background: #16D46B;
+  border: 1px solid #16D46B;
+  color: #fff;
+}
+.buttonStyle{
+  position: fixed;
+  bottom: 20px;
+  left: 0;right: 0;margin: 0 20px;
+  border-radius: 20px;
+}

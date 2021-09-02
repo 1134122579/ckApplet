@@ -1,0 +1,99 @@
+<!-- pages/accessories/index.wxml -->
+<view class="codeStyle" wx:if="{{iscodeButton}}">
+	<view class="bttonStyle flexBoxCenter" bindtap="scanCode">
+		<image class="icon" src="../../images/code.png" />
+	</view>
+	<view class="fontStyle">扫码</view>
+</view>
+<view class="contentStyle" wx:else>
+	<!-- 详情 -->
+	<view>
+		<view class="flexBoxCenter SpanAround">
+			<view class="trStyle ">辅料条码</view>
+			<view class="trStyle">名称</view>
+			<view class="trStyle">规格</view>
+		</view>
+		<view class="flexBoxCenter SpanAround">
+			<view class="trStyle weight thCode">{{getData.bar_code}}</view>
+			<view class="trStyle weight">{{getData.name}}</view>
+			<view class="trStyle weight">{{getData.size}}</view>
+		</view>
+	</view>
+	<view wx:if="{{isNumber}}">
+		<view class="flexBoxCenter matginTop">
+			<view class="trStyle">数量</view>
+			<view class="trStyle">单位</view>
+			<!-- <view class="trStyle"></view> -->
+		</view>
+		<view class="flexBoxCenter ">
+			<view class="trStyle weight">{{getData.num}}</view>
+			<view class="trStyle weight">{{getData.unit}}</view>
+			<!-- <view class="trStyle weight"></view> -->
+		</view>
+	</view>
+	<!-- 选择数量 -->
+	<view class="weightweight" wx:if="{{!isNumber}}">
+		<view class="flexBoxCenter SpanAround">
+			<view class="trStyle">数量</view>
+			<view class="trStyle">单位</view>
+		</view>
+		<view class="flexBoxCenter SpanAround matginTop">
+			<view class="trStyle inputStyleArr flexBoxCenter nomael">
+				<!-- value="{{getData.num}}" -->
+				<input class="inputStyle" type="number" bindinput="bindKeyInput" placeholder="请输入数量" />
+			</view>
+			<view class="trStyle flexBoxCenter nomael">
+				<!-- <input class="inputStylePX" type="number" /> -->
+				<input class="inputStyle" value="{{getData.unit}}" bindinput="bindunit" placeholder="请输入单位" />
+				<!-- <picker
+				 bindchange="bindChange"
+				 value="{{value}}"
+				 range="{{listPx}}"
+				 range-key="name"
+				>
+					<view class="picker">{{getData.unit}}</view>
+				</picker> -->
+			</view>
+			<!-- <picker-view class="trStyle" value="{{value}}" bindchange="bindChange"
+        indicator-style="height: 50px;color:'#ff000'" style="width: 30%; height: 150px;">
+        <picker-view-column>
+          <view wx:for="{{listPx}}" wx:key="id" style="line-height: 50px; text-align: center;">{{item.name}}</view>
+        </picker-view-column>
+      </picker-view> -->
+		</view>
+	</view>
+	<!-- 库存位置 -->
+	<view wx:if="{{!is_homeButton}}">
+		<view class="weightweight" wx:if="{{isNumber}}">
+			<view class="flexBoxCenter SpanAround">
+				<view class="trStyle">请输入库存位</view>
+			</view>
+			<view class="flexBoxCenter SpanAround matginTop">
+				<view class="trStyle inputStyleArr flexBoxCenter nomael flexCloum ">
+					<input class="inputStyle" value="{{getData.location}}" placeholder="请输入库存位" bindinput="dressbindinput"
+						type="text" />
+					<text class="matginTop tagStyle">如多个库位请用逗号分隔</text>
+				</view>
+			</view>
+		</view>
+	</view>
+	<!-- 完成 -->
+	<view class="okUpload" wx:if="{{is_homeButton}}">入库成功</view>
+	<!-- <view>
+  <view>辅料条码</view>
+<view>名称</view>
+<view>规格</view></view> -->
+	<view>
+		<button class="buttonStyle" type="primary" disabled="{{isDisabled}}" bindtap="next" wx:if="{{!is_homeButton}}">
+			{{isNumber?'确定':"下一步"}}
+		</button>
+		<button class="buttonStyle" type="primary" size="default" bindtap="homeButton" wx:if="{{is_homeButton}}">
+			完成
+		</button>
+	</view>
+</view>
+
+<!-- 提示  -->
+<mp-dialog title="提示" show="{{is_barCodeToast}}" bindbuttontap="tapDialogButton" buttons="{{oneButton}}">
+	<view>请确认单号是否正确</view>
+</mp-dialog>

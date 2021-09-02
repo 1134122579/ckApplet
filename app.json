@@ -1,0 +1,54 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/orderlist/index",
+    "pages/login/index",
+    "pages/oddments/index",
+    "pages/oddments/oddments",
+    "pages/turnoff/index",
+    "pages/sendOrder/index",
+    "pages/accessories/index",
+    "pages/tool/index",
+    "pages/about/index",
+    "pages/hardware/index",
+    "pages/orderlist/commodity",
+    "pages/newaccessories/index",
+    "pages/newaccessories/commodity",
+    "pages/staff/index",
+    "pages/staff/staffpage",
+    "pages/hardware/hardware",
+    "pages/hardware/staple",
+    "pages/hardware/satapleout",
+    "pages/hardware/hardwareout"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#909090",
+    "selectedColor": "#2db7f5",
+    "list": [
+      {
+        "text": "订单查询",
+        "iconPath": "images/wrong.png",
+        "selectedIconPath": "images/wrong-select.png",
+        "pagePath": "pages/home/index"
+      },
+      {
+        "text": "账号设置",
+        "iconPath": "images/my.png",
+        "selectedIconPath": "images/my-select.png",
+        "pagePath": "pages/about/index"
+      }
+    ]
+  },
+  "useExtendedLib": {
+    "weui": true
+  },
+  "sitemapLocation": "sitemap.json"
+}

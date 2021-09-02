@@ -1,0 +1,32 @@
+/* pages/hardware/index.wxss */
+.column{
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+
+}
+.block{
+background:cornflowerblue;
+width: 50%;
+height: 60px;
+line-height: 60px;
+text-align: center;
+font-size: 40rpx;
+color: #fff;
+border-radius: 5px;
+margin-top: 20px;
+}
+.bg{
+  background: #B8CDE7;
+
+}
+.bg1{
+  background: #444749;
+}
+.bg2{
+  background: #8BD5E4;
+}
+.bg1{
+  background: #444749;
+}

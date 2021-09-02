@@ -1,0 +1,38 @@
+<!-- 选择订单 -->
+<view class="ordercontainer" hidden="{{is_orderList}}" >
+  <text class="title">请选择相应的订单:</text>
+  <view class="orderlist">
+    <view class="otemStyle {{sureId==item.order_no?'sureStyle':''}}" bindtap="onClick" data-id="{{item.order_no}}"
+      wx:for="{{orderlist}}" wx:key="order_no">{{item.order_no}}</view>
+    <view wx:if="list.length%2!=0" class="nullStyle"></view>
+  </view>
+  <view class="buttonStyle">
+    <button type="primary" size="default" plain disabled="{{isDisabled}}" bindtap="scanCode">扫码</button>
+    <button style="margin-top: 20rpx;" type="primary" size="default"  bindtap="nextOut">下一步</button>
+  </view>
+</view>
+<!-- 选择工位 -->
+<!-- <view class="ordercontainer" hidden="{{is_station}}" >
+  <text class="title">请选择相应的工位:</text>
+  <view class="orderlist">
+    <view class="otemStyle {{sureId==item.order_no?'sureStyle':''}}" bindtap="onStationClick" data-id="{{item.order_no}}"
+      wx:for="{{poperlist}}" wx:key="order_no">{{item.order_no}}</view>
+    <view wx:if="list.length%2!=0" class="nullStyle"></view>
+  </view>
+  <view class="buttonStyle">
+    <button style="margin-top: 20rpx;" type="primary" size="default" bindtap="nextTwoOut">下一步</button>
+  </view>
+</view> -->
+
+
+<!-- 选择员工-->
+<!-- 提示订单不存在 -->
+<mp-dialog title="提示" show="{{is_Order}}" bindbuttontap="is_OrderButton" buttons="{{oneButton}}">
+        <view>订单不存在，请认真检查</view>
+    </mp-dialog>
+<!-- 提示框 -->
+<mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
+<!-- 弹出框 -->
+<mp-dialog title="查询失败" show="{{showOneButtonDialog}}" bindbuttontap="tapDialogButton" buttons="{{oneButton}}">
+  <view>请核对相应订单</view>
+</mp-dialog>

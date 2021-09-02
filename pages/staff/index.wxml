@@ -1,0 +1,97 @@
+<!-- 选择订单 -->
+<wxs src="../../utils/tool.wxs" module="tools" />
+
+<view class="ordercontainer" hidden="{{is_orderList}}">
+  <text class="title">请选择相应的订单:</text>
+  <view class="orderlist">
+    <view class="otemStyle {{sureId==item.order_no?'sureStyle':''}}" bindtap="onClick" data-id="{{item.order_no}}"
+      wx:for="{{orderlist}}" wx:key="order_no">{{item.order_no}}</view>
+    <view wx:if="list.length%2!=0" class="nullStyle"></view>
+  </view>
+  <view class="buttonStyle">
+    <button type="primary" size="default" plain disabled="{{isDisabled}}" bindtap="scanCode">扫码</button>
+    <button style="margin-top: 20rpx;" type="primary" size="default" bindtap="nextOut">下一步</button>
+  </view>
+</view>
+<!-- 选择工位 -->
+<view class="ordercontainer" hidden="{{is_station}}">
+  <text class="title">请选择相应的工位:</text>
+  <view class="orderlist">
+    <view class="otemStyle {{tools.indexOf(sureStationArry,item.id)?'sureStyle':''}}" bindtap="onStationClick"  data-name="{{item.station}}" data-id="{{item.id}}"
+      wx:for="{{StationList}}" wx:key="id">{{item.station}}</view>
+    <view wx:if="list.length%2!=0" class="nullStyle"></view>
+  </view>
+  <view class="buttonStyle">
+    <button style="margin-top: 20rpx;" type="primary" size="default" bindtap="nextTwoOut">下一步</button>
+  </view>
+</view>
+
+
+<!-- 选择员工-->
+<view class="ordercontainer" hidden="{{is_poperList}}">
+  <view class="title texterrStyle">工位:{{selectstationItemName}}</view>
+  <text class="title">请选择相应的人员:</text>
+  <view class="orderlist">
+    <view class="otemStyle {{ tools.indexOf(sureArray,item.id) ?'sureStyle':''}}" bindtap="onpropClick"
+      data-id="{{item.id}}" data-name="{{item.name}}" wx:for="{{poperlist}}" wx:key="id">{{item.name}}</view>
+    <view wx:if="list.length%2!=0" class="nullStyle"></view>
+  </view>
+  <view class="buttonStyle">
+    <button style="margin-top: 20rpx;" type="primary" size="default"  bindtap="nextpropOut">下一步</button>
+  </view>
+</view>
+
+<!-- 员工产量 -->
+<view class="ordercontainer flexBoxCenter flexCloum" hidden="{{ispropListNumber}}">
+  <view class="marginT flexBoxCenter flexCloum">
+    <text class="Name texterrStyle">工位：{{onpropbox.station}}</text>
+    <text class="Name">姓名：{{onpropbox.name}}</text>
+    <view class="trStyle inputStyleArr  flexBoxCenter nomael flexCloum">
+      <input class="inputStyle" type="number" bindinput="bindnumInput" value="{{onpropbox.yield}}"
+        placeholder="请输入数量" />
+
+      <input class="inputStyle" bindinput="bindKeyInput" placeholder="请输入单位" />
+    </view>
+    <view class="marginT ">
+      <text class="Name">是否特殊（加球）</text>
+      <radio-group class="flexBoxCenter" bindchange="radioChange">
+        <label class="weui-cell " wx:for="{{radioList}}" wx:key="value">
+          <view class="weui-cell__hd">
+            <radio value="{{item.value}}" checked="{{item.checked}}" />
+          </view>
+          <view class="weui-cell__bd">{{item.name}}</view>
+        </label>
+      </radio-group>
+    </view>
+    <view class="marginT ">
+      <text class="Name">请输入加球数</text>
+      <input class="inputStyle" type="digit" bindinput="bindpriceInput" value="{{onpropbox.price}}"
+        placeholder="请输入工价" />
+      <input class="inputStyle" type="number" bindinput="bindaddnumInput" placeholder="请输入数量" />
+    </view>
+  </view>
+  <view class="buttonStyle">
+    <text calss="tagtextStyle">请认真填写，点击下一步将无法修改！</text>
+    <button style="margin-top: 20rpx;" type="primary" size="default" disabled="{{isnextManbutton}}"
+      bindtap="nextMan">下一步</button>
+  </view>
+</view>
+<!-- 完成 -->
+<view hidden="{{oksetList}}" class="okPage">
+  <view class="oKtext">录入完成</view>
+  <view class="buttonStyle margionT">
+    <button type="primary" bindtap="ok">
+      完成
+    </button>
+  </view>
+</view>
+
+
+
+
+<!-- 提示框 -->
+<mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
+<!-- 弹出框 -->
+<mp-dialog title="查询失败" show="{{showOneButtonDialog}}" bindbuttontap="tapDialogButton" buttons="{{oneButton}}">
+  <view>请核对相应订单</view>
+</mp-dialog>

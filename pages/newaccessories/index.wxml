@@ -1,0 +1,29 @@
+<view class="ordercontainer" hidden="{{is_orderList}}">
+  <text class="title">请选择相应的订单:</text>
+  <view class="orderlist">
+    <view class="otemStyle {{sureId==item.order_no?'sureStyle':''}}" bindtap="onClick" data-id="{{item.order_no}}"
+      wx:for="{{list}}" wx:key="order_no">{{item.order_no}}</view>
+    <view wx:if="list.length%2!=0" class="nullStyle"></view>
+  </view>
+  <view class="buttonStyle">
+    <button type="primary" size="default"   disabled="{{isDisabled}}" bindtap="scanCode">确认订单</button>
+  </view>
+</view>
+<view class="ordercontainer" hidden="{{is_fuliaoList}}">
+  <text class="title">请选择辅料列表:</text>
+  <view class="orderlist">
+    <view class="otemStyle {{sureFuliaoId==item.bar_code?'sureStyle':''}}" bindtap="onClickFuliao" data-id="{{item.bar_code}}"
+      wx:for="{{fuliaolist}}" wx:key="order_no">{{item.bar_code}}</view>
+    <view wx:if="list.length%2!=0" class="nullStyle"></view>
+  </view>
+  <view class="buttonStyle">
+    <button type="primary" size="default" disabled="{{isDisabled}}" bindtap="suerFuliao">确认辅料</button>
+  </view>
+</view>
+
+<!-- 提示框 -->
+<mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
+<!-- 弹出框 -->
+<mp-dialog title="查询失败" show="{{showOneButtonDialog}}" bindbuttontap="tapDialogButton" buttons="{{oneButton}}">
+  <view>请核对相应订单</view>
+</mp-dialog>

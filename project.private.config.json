@@ -1,0 +1,36 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "扫码",
+          "pathName": "pages/accessories/index",
+          "query": "",
+          "scene": 1011
+        },
+        {
+          "name": "辅料出库",
+          "pathName": "pages/orderlist/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "辅料出库",
+          "pathName": "pages/orderlist/commodity",
+          "query": "orderId=8520852&itemNo=6921734900128",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

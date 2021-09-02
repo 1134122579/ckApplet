@@ -1,0 +1,17 @@
+<view class="HomeStyle">
+  <!-- <text class="title">标题</text> -->
+  <image class="navImage" mode="widthFix" src="../../images/nav.png"></image>
+  <view class="content">
+    <view class="flexBoxCenter borderTop">
+      <view class="w_box borderRight sizeStyle bg1" bindtap="getIsLogin" data-text="辅料入库">辅料入库</view>
+      <view class="w_box sizeStyle bg2" bindtap="getIsLogin" data-text="成品入库">成品入库</view>
+    </view>
+    <view class="borderTop sizeStyle bg3"  bindtap="getIsLogin" data-text="余料入库">余料入库</view>
+    <view class="flexBoxCenter borderTop ">
+      <view class="w_box borderRight sizeStyle bg4"  bindtap="getIsLogin" data-text="辅料出库">辅料出库</view>
+      <view class="w_box sizeStyle bg5"  bindtap="getIsLogin" data-text="成品装柜">成品装柜</view>
+    </view>
+    <view class="borderTop sizeStyle bg6"  bindtap="getIsLogin" data-text="原料入库">原料/五金</view>
+    <view class="borderTop sizeStyle bg7"  bindtap="getIsLogin" data-text="人工登记">人工登记</view>
+  </view>
+</view>

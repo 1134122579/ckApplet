@@ -1,0 +1,20 @@
+<!--pages/about/index.wxml-->
+
+<view class="headerTop flexBlockAbout spanbetween">
+  <view class="flexBlockAbout">
+    <view class="headerImage">
+      <image class="headerImage" src="{{userInfo.headimgurl}}"></image>
+    </view>
+    <view class="userInfo">
+      <view class="name">{{userInfo.name||"未知"}}</view>
+      <view class="mobile">{{userInfo.mobile||"12345678910"}}</view>
+    </view>
+  </view>
+  <view class="right">
+    <!-- <mp-icon icon="arrow" color="black" size="{{25}}"></mp-icon> -->
+  </view>
+</view>
+
+<view class="out">
+  <button type="primary" bindtap="out">退出</button>
+</view>

@@ -1,0 +1,16 @@
+<!--pages/hardware/index.wxml-->
+
+<view class="flexBoxCenter column">
+   <view class="block bg" bindtap="go" data-name="原料入库">
+      原料入库
+   </view>
+   <view class="block bg1" bindtap="go" data-name="原料出库">
+      原料出库
+   </view>
+   <view class="block bg2" bindtap="go" data-name="五金仓入库">
+      五金仓入库
+   </view>
+   <view class="block bg3" bindtap="go" data-name="五金仓出库">
+      五金仓出库
+   </view>
+</view>

@@ -1,0 +1,6 @@
+var indexOf = function (arrayValue, value) {
+    return arrayValue.indexOf(value)!=-1;
+}
+module.exports = {
+  indexOf: indexOf,
+};

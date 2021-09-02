@@ -1,0 +1,45 @@
+/**app.wxss**/
+/**app.wxss**/
+page {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  color: #333;
+  /* background-color: #f8f8f8; */
+  background: #fff;
+  font-size: 16px;
+  font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+.redBackground {
+  background: #98e165;
+}
+.redcolor {
+  color: #98e165;
+}
+
+.css-shadow {
+  -moz-box-shadow: 2px 2px 10px #78e4cc;
+  -webkit-box-shadow: 2px 2px 10px #78e4cc;
+  box-shadow: 2px 2px 10px #78e4cc;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+}
+.flexBoxCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flexCloum {
+  flex-direction: column;
+}
