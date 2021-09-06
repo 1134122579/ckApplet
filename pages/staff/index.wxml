@@ -49,8 +49,7 @@
     <view class="trStyle inputStyleArr  flexBoxCenter nomael flexCloum">
       <input class="inputStyle" type="number" bindinput="bindnumInput" value="{{onpropbox.yield}}"
         placeholder="请输入数量" />
-
-      <input class="inputStyle" bindinput="bindKeyInput" placeholder="请输入单位" />
+      <!-- <input class="inputStyle" bindinput="bindKeyInput" placeholder="请输入单位" /> -->
     </view>
     <view class="marginT ">
       <text class="Name">是否特殊（加球）</text>
@@ -63,9 +62,9 @@
         </label>
       </radio-group>
     </view>
-    <view class="marginT ">
+    <view class="marginT " wx:if="{{onpropbox.is_special==2}}">
       <text class="Name">请输入加球数</text>
-      <input class="inputStyle" type="digit" bindinput="bindpriceInput" value="{{onpropbox.price}}"
+      <input class="inputStyle" type="digit" bindinput="bindpriceInput" 
         placeholder="请输入工价" />
       <input class="inputStyle" type="number" bindinput="bindaddnumInput" placeholder="请输入数量" />
     </view>

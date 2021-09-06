@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    storedata:null,//储存数据
     selectstationItem: {}, //工位对应的员工列表
     StationnameList: [], //选择的工位名列表
     sureStationArry: [], //选择的工位
@@ -31,7 +32,8 @@ Page({
       yield: '',
       unit: '',
       staff_id: '',
-      is_record: 1, //是否特殊处理
+      extra_yield:'',
+      is_special: 1, //是否特殊处理
       price: ''
     }, //当前人员
     setDataList: [],
@@ -63,7 +65,7 @@ Page({
       yield: '',
       px: '',
       location: '',
-      newyield: '', //额外加球数
+      extra_yield: '', //额外加球数
 
     },
     orderlist: [], //订单列表
@@ -80,7 +82,7 @@ Page({
       radioList[index].checked = item.value == e.detail.value
       if (item.value == e.detail.value) {
         that.setData({
-          'onpropbox.is_record': e.detail.value
+          'onpropbox.is_special': e.detail.value
         })
       }
     })
@@ -96,7 +98,7 @@ Page({
     } = event.detail
     console.log('额外加球数', event, value.trim())
     this.setData({
-      "onpropbox.newyield": value.trim()
+      "onpropbox.extra_yield": value.trim()
     })
   },
   // 第一步
@@ -255,31 +257,28 @@ Page({
     })
     console.log(event)
   },
-  // 工位选择
-  // onStationClick(event) {
-  //   let {
-  //     id
-  //   } = event.currentTarget.dataset
-  //   let {
-  //     StationList,
-  //   } = this.data
-  //   StationList.forEach(item => {
-  //     if (item.id == id) {
-  //       this.setData({
-  //         sureStationId: id,
-  //         sureStation: item,
-  //         // sureList: item.list
-  //         'onpropbox.station': item.station
-  //       })
-  //     }
-  //   })
 
-  // },
   // 查询订单详情
   getOrderInfo(order_no) {
     Api.getOrderInfo({
       order_no
     }).then(res => {
+      console.log('订单数据',res)
+      if(res.stations.length>0||!res.stations){
+
+        this.setData({
+          orderDetail: res,
+          is_orderList: true,
+          is_station: true,
+          is_poperList:true,
+          ispropListNumber:false,
+          selectstationArray:res.stations,
+          storedata:res.stations
+        })
+        this.onessetionObj()
+        this.oneProp()
+        return
+      }
       this.setData({
         orderDetail: res,
         is_orderList: true,
@@ -287,6 +286,8 @@ Page({
       })
     })
   },
+  // 过滤掉已经填写的人
+
   // 工位选择选择
   onStationClick(event) {
     let {
@@ -308,7 +309,6 @@ Page({
       sureStationArry,
       StationnameList
     })
-    console.log(id, sureStationArry, StationnameList)
   },
   //确认工位  数组
   nextTwoOut() {
@@ -356,17 +356,17 @@ Page({
       sureArray.splice(sureArray.indexOf(id), 1)
       nameList.splice(sureArray.indexOf(id), 1)
       selectstationObjList.splice(sureArray.indexOf(id), 1)
-      console.log('selectstationItem111111', selectstationObjList, sureArray)
-
     } else {
-      console.log('selectstationItem22222', selectstationObjList, sureArray)
       selectstationObjList.push({
+        is_up:false,
         id,
         name
       })
       sureArray.push(id)
       nameList.push(name)
     }
+    console.log('selectstationItem33333', selectstationObjList, sureArray)
+
     this.setData({
       selectstationObjList,
       sureArray,
@@ -384,6 +384,7 @@ Page({
       name: selectstationItemName,
       list: selectstationObjList,
     }  
+    console.log('员工选择=======',selectstationItem)
       selectstationArray.push(selectstationItem)
     console.log(999999999999999, selectstationItem, selectstationArray)
     this.setData({
@@ -394,6 +395,7 @@ Page({
   nextpropOut() {
     let {
       StationnameList,
+      selectstationArray,
       sureArray
     } = this.data
     if (sureArray.length <= 0) {
@@ -402,22 +404,24 @@ Page({
       })
       return
     }
+    this.suersetionPeople()
     if (StationnameList.length > 0) {
-      this.suersetionPeople()
       this.onestation()
-      this.setData({
-        selectstationObjList:[],
-        sureArray: [],
-        nameList: [],
-      })
     } else {
+            // 储存数据所有员工列表
       this.setData({
+        storedata:JSON.parse(JSON.stringify(selectstationArray)),
         is_poperList: true,
         ispropListNumber: false
       })
-      this.onessetionObj()
-      this.oneProp()
+      this.onessetionObj()  //选一个 工位
+      this.oneProp() // 选中一个工人
     }
+    this.setData({
+      selectstationObjList:[],
+      sureArray: [],
+      nameList: [],
+    })
   },
 
   // 选择工位列表
@@ -426,34 +430,41 @@ Page({
       selectstationArray
     } = this.data
     console.log('选择工位====',selectstationArray)
+    if(selectstationArray.length<=0){
+      return
+    }
     let people = selectstationArray.splice(0, 1)
     this.setData({
       oneStation: people
     })
     console.log(222222, people)
+  
   },
   // 获取当前一个人
   oneProp() {
     let {
       nameList,
-      oneStation
+      oneStation,
+      
     } = this.data
+    let that=this
     // 判断工位的人员选择完毕不
     console.log('33333333333333333333', oneStation)
     let obj = oneStation[0]
     if (obj.list.length <= 0) {
       this.onessetionObj() //
     }
-    console.log('44444444444444444', oneStation)
-
+    console.log('44444444444444444', obj.list)
     if (obj.list.length > 0) {
       let objitem = obj.list.splice(0, 1)[0]
-      // let name = obj.selectstationList.splice(0, 1)
+      
       console.log( objitem)
       this.setData({
+        'onpropbox.stations': that.filterok(obj.name,objitem.name),
         'onpropbox.station': obj.name,
         'onpropbox.name': objitem.name,
         'onpropbox.staff_id': objitem.id,
+        'onpropbox.extra_yield': '',
         'onpropbox.yield': '',
         'onpropbox.price': '',
         isnextManbutton: false,
@@ -461,6 +472,20 @@ Page({
       })
     }
 
+  },
+  filterok(stationname,name){
+    let {storedata}=this.data
+   storedata.forEach(item=>{
+      if(item.name==stationname){
+        item.list.forEach(obj=>{
+          if(obj.name==name){
+            obj.is_up==true
+          }
+        })
+      }
+    })
+    console.log('自定义数组',storedata)
+    return storedata;
   },
   // 下一个人
   nextMan() {
@@ -470,6 +495,7 @@ Page({
       setDataList,
       selectstationArray
     } = this.data
+    let that=this
     console.log(nameList)
     if (!onpropbox.yield) {
       wx.showToast({
@@ -477,26 +503,25 @@ Page({
       })
       return
     }
-    if (!onpropbox.unit) {
-      wx.showToast({
-        title: '请填写单位',
-      })
-      return
-    }
-    if (onpropbox.is_record == 2) {
+    // if (!onpropbox.unit) {
+    //   wx.showToast({
+    //     title: '请填写单位',
+    //   })
+    //   return
+    // }
+    if (onpropbox.is_special == 2) {
       if (!onpropbox.price) {
         wx.showToast({
           title: '请填写工价',
         })
         return
       }
-      if (!onpropbox.newyield) {
+      if (!onpropbox.extra_yield) {
         wx.showToast({
           title: '请填写额外加球数',
         })
         return
       }
-
     }
     // 所有人完成填写
     if (selectstationArray.length <= 0) {
@@ -514,11 +539,11 @@ Page({
     })
 
     Api.staff_wages(onpropbox).then(res => {
-      setDataList.push(onpropbox)
-      this.setData({
-        setDataList
-      })
-      this.oneProp()
+      // setDataList.push(onpropbox)
+      // that.setData({
+      //   setDataList
+      // })
+      that.oneProp()
     }).catch(() => {
       this.setData({
         isnextManbutton: false
