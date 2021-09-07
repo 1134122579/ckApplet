@@ -43,7 +43,8 @@
     </view>
     <view class="flexBoxCenter SpanAround matginTop">
       <view class="trStyle inputStyleArr  flexBoxCenter nomael">
-        <input class="inputStyle" value="{{getData.num}}" type="number" bindinput="bindKeyInput" placeholder="请输入数量" />
+        <!-- value="{{getData.num}}" -->
+        <input class="inputStyle"  type="number" bindinput="bindKeyInput" placeholder="请输入数量" />
       </view>
       <view class="trStyle flexBoxCenter">
         {{getData.unit}}
@@ -66,13 +67,13 @@
   <view wx:if="{{!is_homeButton}}">
   <view class="weightweight" wx:if="{{isNumber}}">
     <view class="flexBoxCenter SpanAround">
-      <view class="trStyle">请输入库存位</view>
+      <view class="trStyle">库存位</view>
     </view>
     <view class="flexBoxCenter SpanAround matginTop">
       <view class="trStyle inputStyleArr  flexBoxCenter nomael flexCloum ">
-        <input class="inputStyle" value="{{getData.warehouse_no}}" placeholder="请输入库存位" bindinput="dressbindinput"
+        <input class="inputStyle" value="{{getData.warehouse_no}}" disabled="warehouse_nodisabled" placeholder="请输入库存位" bindinput="dressbindinput"
           type="text" />
-        <text class="matginTop tagStyle">如多个库位请用逗号分隔</text>
+        <!-- <text class="matginTop tagStyle">如多个库位请用逗号分隔</text> -->
       </view>
 
     </view>
@@ -95,3 +96,7 @@
   </view>
 
 </view>
+<!-- 弹出框 -->
+<mp-dialog title="出库提示" show="{{showOneButtonDialog}}" bindbuttontap="tapDialogButton" buttons="{{oneButton}}">
+  <view>出库数量大于库存量，是否继续</view>
+</mp-dialog>

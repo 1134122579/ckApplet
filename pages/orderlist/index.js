@@ -7,22 +7,22 @@ Page({
    * 页面的初始数据
    */
   data: {
-    is_fuliaoList:true,//辅料列表
-    is_orderList:false,//辅料列表
-    fuliaoItem:{},//选中的辅料
+    is_fuliaoList: true, //辅料列表
+    is_orderList: false, //辅料列表
+    fuliaoItem: {}, //选中的辅料
     showOneButtonDialog: false,
     oneButton: [{
       text: '确定'
     }],
-    listQuery:{
-      page:1,
-      pageSize:10
-    },  
+    listQuery: {
+      page: 1,
+      pageSize: 10
+    },
     error: '',
     isDisabled: false,
     sureId: '',
     getData: {
-      order_no:'',
+      order_no: '',
       code: '',
       name: '',
       dec: '',
@@ -31,18 +31,20 @@ Page({
       location: ''
     },
     list: [],
-    sureFuliaoId:'',
-    fuliaolist:[]
+    sureFuliaoId: '',
+    fuliaolist: []
   },
   // 获取订单号
-      getOrderList() {
-        let {listQuery}=this.data
-        Api.getOrderList(listQuery).then(res => {
-            this.setData({
-                list: res
-            })
-        })
-    },
+  getOrderList() {
+    let {
+      listQuery
+    } = this.data
+    Api.getOrderList(listQuery).then(res => {
+      this.setData({
+        list: res
+      })
+    })
+  },
 
   tapDialogButton(e) {
     console.log(e)
@@ -51,9 +53,8 @@ Page({
       isDisabled: false,
     })
   },
-  // 确认订单号
-  // 扫码
-  scanCode() {
+  // 确认订单号  获取辅料列表
+  getfuliaoList() {
     let that = this
     let {
       sureId
@@ -65,23 +66,57 @@ Page({
       return
     }
     this.setData({
-      isDisabled:true
+      isDisabled: true
     })
-    Api.getOrderSlaveList({order_no:sureId}).then(res=>{
+    Api.getOrderSlaveList({
+      order_no: sureId
+    }).then(res => {
       that.setData({
-        isDisabled:false,
-        is_orderList:true,
+        isDisabled: false,
+        is_orderList: true,
         sureId,
         is_fuliaoList: false,
-        fuliaolist:res
+        fuliaolist: res
       })
-    }).catch(()=>{
+    }).catch(() => {
       that.setData({
-        isDisabled:false
+        isDisabled: false
       })
     })
   },
-  suerFuliao(){
+  scanCode() {
+    let that = this
+    let {
+      fuliaolist,
+      sureId
+    } = this.data
+    that.setData({
+      isDisabled: false
+    })
+    wx.scanCode({
+      onlyFromCamera: true,
+      success(data) {
+        console.log('扫码===', data.result)
+        let is_fuliao = fuliaolist.indexOf(data.result) != -1
+        if (is_fuliao) {
+          wx.redirectTo({
+            url: '/pages/orderlist/commodity?orderId=' + sureId + '&itemNo=' + data.result,
+          })
+        } else {
+          that.setData({
+            showOneButtonDialog: true
+          })
+        }
+      },
+      complete(res) {
+        that.setData({
+          isDisabled: false
+        })
+      }
+    })
+  },
+  // 手选辅料
+  suerFuliao() {
     let {
       sureId,
       sureFuliaoId,
@@ -94,10 +129,10 @@ Page({
       return
     }
     wx.redirectTo({
-      url: '/pages/orderlist/commodity?orderId='+sureId+'&itemNo='+sureFuliaoId,
+      url: '/pages/orderlist/commodity?orderId=' + sureId + '&itemNo=' + sureFuliaoId,
     })
   },
-  onClickFuliao(event){
+  onClickFuliao(event) {
     let {
       id
     } = event.currentTarget.dataset
@@ -105,10 +140,10 @@ Page({
       fuliaolist
     } = this.data
     fuliaolist.forEach(item => {
-      if(item.bar_code == id ){
+      if (item.bar_code == id) {
         this.setData({
           sureFuliaoId: id,
-          fuliaoItem:item
+          fuliaoItem: item
         })
       }
 
@@ -123,7 +158,7 @@ Page({
       list
     } = this.data
     list.forEach(item => {
-      if(item.order_no == id){
+      if (item.order_no == id) {
         this.setData({
           sureId: id,
           // sureList: item.list
@@ -152,7 +187,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-this.getOrderList()
+    this.getOrderList()
   },
 
   /**

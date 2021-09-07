@@ -6,7 +6,7 @@
     <view wx:if="list.length%2!=0" class="nullStyle"></view>
   </view>
   <view class="buttonStyle">
-    <button type="primary" size="default"   disabled="{{isDisabled}}" bindtap="scanCode">确认订单</button>
+    <button type="primary" size="default"   disabled="{{isDisabled}}" bindtap="getfuliaoList">确认订单</button>
   </view>
 </view>
 <view class="ordercontainer" hidden="{{is_fuliaoList}}">
@@ -17,7 +17,8 @@
     <view wx:if="list.length%2!=0" class="nullStyle"></view>
   </view>
   <view class="buttonStyle">
-    <button type="primary" size="default" disabled="{{isDisabled}}" bindtap="suerFuliao">确认辅料</button>
+    <button type="primary" size="default" plain disabled="{{isDisabled}}" bindtap="scanCode">扫码</button>
+    <button type="primary" class="button_son" size="default" disabled="{{isDisabled}}" bindtap="suerFuliao">确认辅料</button>
   </view>
 </view>
 

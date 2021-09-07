@@ -6,8 +6,11 @@ Page({
    * 页面的初始数据
    */
   data: {
+    is_pass: true, //是否判断超量
+    ckNum: null, //库存
+    warehouse_nodisabled: true,
     maskclosable: false,
-    dialogShow: false,
+    showOneButtonDialog: false,
     dialogbuttons: [{
       text: '取消'
     }, {
@@ -47,7 +50,7 @@ Page({
     } = e.detail
     if (index == 1) {
       this.setData({
-        dialogShow: false,
+        showOneButtonDialog: false,
         isNumber: true
       })
     } else {
@@ -99,7 +102,9 @@ Page({
     let that = this
     let {
       isNumber,
-      getData
+      getData,
+      ckNum,
+      is_pass
     } = this.data
     // 选择数量
     if (!isNumber) {
@@ -120,12 +125,16 @@ Page({
         return
       }
       // 验证需要的数量 
-      // if (getData.num * getData.unit > 10) {
-      //   this.setData({
-      //     dialogShow: true
-      //   })
-      //   return
-      // }
+      // 是否判断超量
+      if (is_pass) {
+        if (getData.num > ckNum) {
+          this.setData({
+            showOneButtonDialog: true
+          })
+          return
+        }
+      }
+
       this.setData({
         isNumber: true
       })
@@ -229,13 +238,17 @@ Page({
       let {
         name,
         size,
-        unit
+        unit,
+        num,
+        warehouse_no
       } = res
       this.setData({
         "getData.order_no": orderId,
         "getData.bar_code": itemNo,
         "getData.name": name,
         "getData.unit": unit,
+        "getData.warehouse_no": warehouse_no,
+        ckNum: num
         // "getData.dec": size || '未知',
       })
     })
